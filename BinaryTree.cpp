@@ -154,26 +154,21 @@ Node* BinaryTree::recursiveDelete(Node* ptr, ItemType key) {
     } else if (key.compareTo(ptr -> key) == GREATER) {
       ptr -> right = recursiveDelete(ptr -> right, key);
     } else {
-      if (ptr -> left == NULL && ptr -> right == NULL) {
+      if (ptr -> left == NULL) {
 	size--;
-	delete(ptr);
+    Node *temp = ptr -> right;
+    delete(ptr);
+    return temp;
       } else if (ptr -> right == NULL) {
-	Node *temp = ptr;
-	ptr = ptr -> left;
-	size--;
-	delete temp;
-      } else if (ptr -> left == NULL) {
-	Node *temp = ptr;
-	ptr = ptr -> right;
-	size--;
-	delete temp;
-      } else {
-	Node *min = findP(ptr->left);
-	
-	ptr -> key = min -> key;
-	
-	recursiveDelete(ptr -> left, min -> key);
+          Node *temp = ptr -> left;
+          delete(ptr);
+          return temp;
       }
+
+      Node* temp = findP(ptr -> right);
+      ptr -> key = temp -> key;
+
+      ptr -> right =  recursiveDelete(ptr -> right, temp -> key);
     }
     return ptr;
 }
