@@ -26,10 +26,12 @@ public:
   int getLength() const; //print out length
   void getSameLevelNonsiblings(ItemType &key); //gets same level node value
   Node*  recursiveInsert(Node *ptr, ItemType key);
-    void recursiveInOrder(Node* ptr) const;
-    void recursivePreOrder(Node* ptr) const;
-    void recursivePostOrder(Node* ptr) const;
-    void recursiveRetrieve(ItemType item, bool &found, Node* ptr) const;
-    Node* recursiveDelete(Node* ptr, ItemType key);
+  void recursiveInOrder(Node* ptr) const;
+  void recursivePreOrder(Node* ptr) const;
+  void recursivePostOrder(Node* ptr) const;
+  void recursiveRetrieve(ItemType item, bool &found, Node* ptr) const;
+  Node* recursiveDelete(Node* ptr, ItemType key);
+  void recursiveDestroy(Node *ptr);
+  Node* findP(Node* node);
 };
 #endif

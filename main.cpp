@@ -45,35 +45,46 @@ while(getline(readFile,input)) {
         getline(cin, input); //gets number
         item.initialize(stoi(input)); //adds number to item
         list.insert(item); //adds item to list
-        list.inOrder();
-        cout << endl;
+        cout << "In-Order: ";
+	list.inOrder();
+	cout << endl;
          } else if (input.compare("n") == 0) { //if insert
-        list.inOrder();
+	   cout << "In-Order: ";
+	   list.inOrder();
+	   cout << endl;
          } else if (input.compare("p") == 0) { //if insert
-        list.preOrder();
+	   cout << "Pre-Order: ";
+	   list.preOrder();
+	   cout << endl;
          } else if (input.compare("o") == 0) { //if insert
-        list.postOrder();
+	   cout << "Post-Order: ";
+	   list.postOrder();
+	   cout << endl;
          } else if (input.compare("r") == 0) {
-        cout << "Item to be retrieved: ";
-        getline(cin, input); //gets number
-        item.initialize(stoi(input));
-             bool found = false;
-             list.retrieve(item,found);
-             if (found) {
-                 cout << "Item found in tree." <<endl;
-             } else {
-                 cout << "Item not in tree." <<endl;
-             }
-             cout << endl;
+	   cout << "Item to be retrieved: ";
+	   getline(cin, input); //gets number
+	   item.initialize(stoi(input));
+	   bool found = false;
+	   list.retrieve(item,found);
+	   if (found) {
+	     cout << "Item found in tree." <<endl;
+	   } else {
+	     cout << "Item not in tree." <<endl;
+	   }
+	   cout << endl;
          }  else if (input.compare("l") == 0) {
-             cout << "List Length: " << list.getLength() << endl;
-
+	   cout << "List Length: " << list.getLength() << endl;
+	   
          } else if (input.compare("d") == 0) { //if insert
-        cout << "Item to delete: ";
-        getline(cin, input); //gets number
-        item.initialize(stoi(input)); //adds number to item
-        list.deleteItem(item); //adds item to list
-        list.inOrder();
-         }
+	   cout << "Item to delete: ";
+	   getline(cin, input); //gets number
+	   item.initialize(stoi(input)); //adds number to item
+	   list.deleteItem(item); //adds item to list
+	   cout << "In-Order: ";
+	   list.inOrder();
+	   cout << endl;
+         } else if (input.compare("q") == 0) {
+	   return 0;
+	 }
      }
 }

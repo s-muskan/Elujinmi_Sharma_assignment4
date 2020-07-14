@@ -8,10 +8,16 @@ BinaryTree:: BinaryTree() {
 }
 
 BinaryTree:: ~BinaryTree() {
-
+  recursiveDestroy(root);
 }
 
-
+void BinaryTree:: recursiveDestroy(Node *ptr) {
+  if (ptr != NULL) {
+    recursiveDestroy(ptr->left);
+    recursiveDestroy(ptr->right);
+    delete ptr;
+  }
+}
 
 Node*  BinaryTree::recursiveInsert(Node *ptr, ItemType key) {
     if ( ptr == NULL) {
@@ -133,8 +139,7 @@ int BinaryTree::getLength()const {
 
 
 void BinaryTree::deleteItem(ItemType key) {
-
-    recursiveDelete(root, key);
+  recursiveDelete(root, key);
 }
 
 
@@ -144,21 +149,39 @@ Node* BinaryTree::recursiveDelete(Node* ptr, ItemType key) {
         return ptr;
     }
 
-    if (key.compareTo( ptr -> key) == LESS) {
-        ptr -> left = recursiveDelete(ptr -> left, key);
+    if (key.compareTo(ptr -> key) == LESS) {
+      ptr -> left = recursiveDelete(ptr -> left, key);
     } else if (key.compareTo(ptr -> key) == GREATER) {
-         ptr -> right = recursiveDelete(ptr -> right, key);
-
+      ptr -> right = recursiveDelete(ptr -> right, key);
     } else {
-        if (ptr -> left == NULL) {
-            Node *temp  = ptr -> right;
-            free(ptr);
-            return temp;
-        } else if (ptr -> right == NULL) {
-
-            Node *temp  = ptr -> left;
-            free(ptr);
-            return temp;
-        }
+      if (ptr -> left == NULL && ptr -> right == NULL) {
+	size--;
+	delete(ptr);
+      } else if (ptr -> right == NULL) {
+	Node *temp = ptr;
+	ptr = ptr -> left;
+	size--;
+	delete temp;
+      } else if (ptr -> left == NULL) {
+	Node *temp = ptr;
+	ptr = ptr -> right;
+	size--;
+	delete temp;
+      } else {
+	Node *min = findP(ptr->left);
+	
+	ptr -> key = min -> key;
+	
+	recursiveDelete(ptr -> left, min -> key);
+      }
     }
+    return ptr;
+}
+
+Node* BinaryTree:: findP(Node* node) {
+  Node* min = node;
+  while (min != NULL && min->left != NULL) {
+    min = min -> left;
+  }
+  return min;
 }
