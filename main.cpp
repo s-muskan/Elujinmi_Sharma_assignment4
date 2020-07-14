@@ -68,6 +68,12 @@ while(getline(readFile,input)) {
          }  else if (input.compare("l") == 0) {
              cout << "List Length: " << list.getLength() << endl;
 
+         } else if (input.compare("d") == 0) { //if insert
+        cout << "Item to delete: ";
+        getline(cin, input); //gets number
+        item.initialize(stoi(input)); //adds number to item
+        list.deleteItem(item); //adds item to list
+        list.inOrder();
          }
      }
 }

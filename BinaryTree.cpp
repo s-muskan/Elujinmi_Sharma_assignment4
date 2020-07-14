@@ -130,3 +130,35 @@ void BinaryTree::recursiveRetrieve(ItemType item, bool &found, Node* ptr) const 
 int BinaryTree::getLength()const {
     return size;
 }
+
+
+void BinaryTree::deleteItem(ItemType key) {
+
+    recursiveDelete(root, key);
+}
+
+
+Node* BinaryTree::recursiveDelete(Node* ptr, ItemType key) {
+
+    if (ptr == NULL) {
+        return ptr;
+    }
+
+    if (key.compareTo( ptr -> key) == LESS) {
+        ptr -> left = recursiveDelete(ptr -> left, key);
+    } else if (key.compareTo(ptr -> key) == GREATER) {
+         ptr -> right = recursiveDelete(ptr -> right, key);
+
+    } else {
+        if (ptr -> left == NULL) {
+            Node *temp  = ptr -> right;
+            free(ptr);
+            return temp;
+        } else if (ptr -> right == NULL) {
+
+            Node *temp  = ptr -> left;
+            free(ptr);
+            return temp;
+        }
+    }
+}

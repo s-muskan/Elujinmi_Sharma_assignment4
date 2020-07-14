@@ -30,5 +30,6 @@ public:
     void recursivePreOrder(Node* ptr) const;
     void recursivePostOrder(Node* ptr) const;
     void recursiveRetrieve(ItemType item, bool &found, Node* ptr) const;
+    Node* recursiveDelete(Node* ptr, ItemType key);
 };
 #endif
