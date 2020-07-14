@@ -16,13 +16,17 @@ private:
 public:
   BinaryTree(); //tree is initialized
   ~BinaryTree(); //all node pointers are freed
-  void insert(ItemTypekey); //insert node
-  void deleteItem(ItemTypekey); //removes node from list
+  void insert(ItemType key); //insert node
+  void deleteItem(ItemType key); //removes node from list
   void retrieve(ItemType&item,bool&found) const; //found
   void preOrder() const; //print out pre-order
   void inOrder() const; //print our in order
   void postOrder() const; //print out post order
-  inst getLength() const; //print out length
+  int getLength() const; //print out length
   void getSameLevelNonsiblings(ItemType &key); //gets same level node value
+  Node*  recursiveInsert(Node *ptr, ItemType key);
+    void recursiveInOrder(Node* ptr) const;
+    void recursivePreOrder(Node* ptr) const;
+    void recursivePostOrder(Node* ptr) const;
 };
 #endif
