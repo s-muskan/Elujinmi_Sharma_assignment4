@@ -35,7 +35,7 @@ while(getline(readFile,input)) {
     }
   }
 
-    cout << "insert (i), delete (d), length (l), print (p), quit (q)" <<endl;
+    cout << "insert (i), delete (d), retrieve (r), length (l), in-order (n), \n pre-order (p), post-order (o), getSameLevelNonsiblings (c),quit (q)"<<endl;
 
      while (true) { //loop to keep going
          cout << "Enter a command:  ";
@@ -46,6 +46,12 @@ while(getline(readFile,input)) {
         item.initialize(stoi(input)); //adds number to item
         list.insert(item); //adds item to list
         list.inOrder();
+         } else if (input.compare("n") == 0) { //if insert
+        list.inOrder();
+         } else if (input.compare("p") == 0) { //if insert
+        list.preOrder();
+         } else if (input.compare("o") == 0) { //if insert
+        list.postOrder();
          }
      }
 }

@@ -31,8 +31,10 @@ void BinaryTree::insert(ItemType key) {
         root = new Node();
         root -> key = key;
         return;
+        size++;
     }
  recursiveInsert(root,key);
+ size++;
  return;
 }
 
@@ -52,6 +54,7 @@ void BinaryTree::preOrder() const {
 void BinaryTree::postOrder() const {
 
     recursivePostOrder(root);
+    cout << endl;
 }
 
 void BinaryTree::recursiveInOrder(Node* ptr) const {
@@ -92,7 +95,7 @@ void BinaryTree::recursivePostOrder(Node* ptr) const {
 
     recursivePostOrder( ptr -> right);
 
-    cout << ptr -> key.getValue();
+    cout << ptr -> key.getValue() << " ";
 
 
 }

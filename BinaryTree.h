@@ -14,6 +14,7 @@ class BinaryTree {
 private:
   Node *root;
 public:
+    int size;
   BinaryTree(); //tree is initialized
   ~BinaryTree(); //all node pointers are freed
   void insert(ItemType key); //insert node
