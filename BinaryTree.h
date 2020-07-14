@@ -14,7 +14,7 @@ class BinaryTree {
 private:
   Node *root;
 public:
-    int size;
+    int size = 0;
   BinaryTree(); //tree is initialized
   ~BinaryTree(); //all node pointers are freed
   void insert(ItemType key); //insert node
@@ -29,5 +29,6 @@ public:
     void recursiveInOrder(Node* ptr) const;
     void recursivePreOrder(Node* ptr) const;
     void recursivePostOrder(Node* ptr) const;
+    void recursiveRetrieve(ItemType item, bool &found, Node* ptr) const;
 };
 #endif

@@ -26,12 +26,19 @@ Node*  BinaryTree::recursiveInsert(Node *ptr, ItemType key) {
 }
 
 void BinaryTree::insert(ItemType key) {
+    bool duplicate = false;
+     recursiveRetrieve(key, duplicate, root);
+     if (duplicate) {
+
+         cout << "Item already in tree." <<endl;
+         return;
+     }
 
  if (root == NULL) {
         root = new Node();
         root -> key = key;
-        return;
         size++;
+        return;
     }
  recursiveInsert(root,key);
  size++;
@@ -98,4 +105,28 @@ void BinaryTree::recursivePostOrder(Node* ptr) const {
     cout << ptr -> key.getValue() << " ";
 
 
+}
+
+void BinaryTree::retrieve(ItemType &item, bool &found) const {
+
+    recursiveRetrieve(item,  found, root);
+}
+
+
+void BinaryTree::recursiveRetrieve(ItemType item, bool &found, Node* ptr) const {
+
+    if (ptr == NULL) {
+        return;
+    }
+
+    recursiveRetrieve(item,  found, ptr -> left);
+    recursiveRetrieve(item,  found, ptr -> right);
+    if (ptr -> key.compareTo(item) == EQUAL) {
+        found = true;
+    }
+
+}
+
+int BinaryTree::getLength()const {
+    return size;
 }

@@ -41,17 +41,33 @@ while(getline(readFile,input)) {
          cout << "Enter a command:  ";
          getline(cin, input); //gets in command entered by user
          if (input.compare("i") == 0) { //if insert
-        cout << "Number to insert:  ";
+        cout << "Item to insert:  ";
         getline(cin, input); //gets number
         item.initialize(stoi(input)); //adds number to item
         list.insert(item); //adds item to list
         list.inOrder();
+        cout << endl;
          } else if (input.compare("n") == 0) { //if insert
         list.inOrder();
          } else if (input.compare("p") == 0) { //if insert
         list.preOrder();
          } else if (input.compare("o") == 0) { //if insert
         list.postOrder();
+         } else if (input.compare("r") == 0) {
+        cout << "Item to be retrieved: ";
+        getline(cin, input); //gets number
+        item.initialize(stoi(input));
+             bool found = false;
+             list.retrieve(item,found);
+             if (found) {
+                 cout << "Item found in tree." <<endl;
+             } else {
+                 cout << "Item not in tree." <<endl;
+             }
+             cout << endl;
+         }  else if (input.compare("l") == 0) {
+             cout << "List Length: " << list.getLength() << endl;
+
          }
      }
 }
