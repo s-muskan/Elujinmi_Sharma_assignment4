@@ -4,83 +4,81 @@ using std::cout;
 using std::endl;
 
 BinaryTree:: BinaryTree() {
-    root  = NULL;
+  root  = NULL; //root is null
 }
 
 BinaryTree:: ~BinaryTree() {
-  recursiveDestroy(root);
+  recursiveDestroy(root); //destroys tree recursively
 }
 
 void BinaryTree:: recursiveDestroy(Node *ptr) {
-  if (ptr != NULL) {
-    recursiveDestroy(ptr->left);
+  if (ptr != NULL) { //uses recursive to delete each node
+    recursiveDestroy(ptr->left); //goes bottom to up
     recursiveDestroy(ptr->right);
-    delete ptr;
+    delete ptr; //deltes node
   }
 }
 
 Node*  BinaryTree::recursiveInsert(Node *ptr, ItemType key) {
-    if ( ptr == NULL) {
-        ptr = new Node;
-        ptr -> key = key;
+    if ( ptr == NULL) { 
+      ptr = new Node; //new node initialized
+      ptr -> key = key;
     } else if (key.compareTo(ptr -> key) == LESS) {
-        ptr -> left = recursiveInsert( ptr -> left, key);
+      ptr -> left = recursiveInsert( ptr -> left, key); //ptr is set to new pointer and called recursively
     } else {
-        ptr -> right = recursiveInsert( ptr -> right, key);
+      ptr -> right = recursiveInsert( ptr -> right, key); //called recursively on the left side
     }
-    return ptr;
+    return ptr; //ptr is retured
 }
 
 void BinaryTree::insert(ItemType key) {
-    bool duplicate = false;
-     recursiveRetrieve(key, duplicate, root);
-     if (duplicate) {
-
-         cout << "Item already in tree." <<endl;
-         return;
-     }
-
- if (root == NULL) {
-        root = new Node();
-        root -> key = key;
-        size++;
-        return;
-    }
- recursiveInsert(root,key);
- size++;
- return;
+  bool duplicate = false; //checks for duplicate items
+  recursiveRetrieve(key, duplicate, root); //checks to see if item is in tree already
+  if (duplicate) {
+    
+    cout << "Item already in tree." <<endl; //if item already exits
+    return; //returns funciton
+  }
+  
+  if (root == NULL) { //if list is empty
+    root = new Node(); //new root
+    root -> key = key; //new data
+    size++; //adds to size
+    return;
+  }
+  recursiveInsert(root,key); //if not new node, adds recursivly
+  size++; //increments size
+  return;
 }
 
 void BinaryTree::inOrder() const {
 
-    recursiveInOrder(root);
-    cout <<endl;
+  recursiveInOrder(root); //prints inorder recursively
+  cout <<endl; 
 
 }
 
 void BinaryTree::preOrder() const {
-
-    recursivePreOrder(root);
-    cout << endl;
+  recursivePreOrder(root); //prints preoder
+  cout << endl;
 }
 
 void BinaryTree::postOrder() const {
-
-    recursivePostOrder(root);
-    cout << endl;
+  recursivePostOrder(root); //prints postorder
+  cout << endl;
 }
 
 void BinaryTree::recursiveInOrder(Node* ptr) const {
 
-    if (ptr == NULL) {
-        return;
-    }
+  if (ptr == NULL) { //if root is null
+    return;
+  }
 
-    recursiveInOrder(ptr -> left);
-
-    cout << ptr -> key.getValue() << " ";
-
-    recursiveInOrder(ptr -> right);
+  recursiveInOrder(ptr -> left); //goes left
+  
+  cout << ptr -> key.getValue() << " "; //root
+  
+  recursiveInOrder(ptr -> right); //right
 }
 
 
@@ -90,11 +88,11 @@ void BinaryTree::recursivePreOrder(Node* ptr) const {
         return;
     }
 
-    cout << ptr -> key.getValue() << " ";
+    cout << ptr -> key.getValue() << " "; //goes root
+    
+    recursivePreOrder(ptr -> left); //left
 
-    recursivePreOrder(ptr -> left);
-
-    recursivePreOrder(ptr -> right);
+    recursivePreOrder(ptr -> right); //and then right
 
 }
 
@@ -104,18 +102,18 @@ void BinaryTree::recursivePostOrder(Node* ptr) const {
         return;
     }
 
-    recursivePostOrder( ptr -> left);
+    recursivePostOrder( ptr -> left); //goes left
 
-    recursivePostOrder( ptr -> right);
+    recursivePostOrder( ptr -> right); //right
 
-    cout << ptr -> key.getValue() << " ";
+    cout << ptr -> key.getValue() << " "; //then root
 
 
 }
 
 void BinaryTree::retrieve(ItemType &item, bool &found) const {
 
-    recursiveRetrieve(item,  found, root);
+  recursiveRetrieve(item,  found, root); //retrieves item
 }
 
 
@@ -125,37 +123,45 @@ void BinaryTree::recursiveRetrieve(ItemType item, bool &found, Node* ptr) const 
         return;
     }
 
-    recursiveRetrieve(item,  found, ptr -> left);
-    recursiveRetrieve(item,  found, ptr -> right);
-    if (ptr -> key.compareTo(item) == EQUAL) {
-        found = true;
+    recursiveRetrieve(item,  found, ptr -> left); //goes through the entire list
+    recursiveRetrieve(item,  found, ptr -> right); //goes through list to find
+    if (ptr -> key.compareTo(item) == EQUAL) { //if equal
+      found = true; //then true
     }
 
 }
 
 int BinaryTree::getLength()const {
-    return size;
+  return size; //returns size
 }
 
 
 void BinaryTree::deleteItem(ItemType key) {
-  deleteHelper(root, key);
+  deleteHelper(root, key); //deletes
   size--;
 }
 
 void BinaryTree::deleteHelper(Node*& node, ItemType& key) {
-  if(key.compareTo(node -> key) == LESS) {
-    deleteHelper(node -> left, key);
-  } else if (key.compareTo(node -> key) == GREATER) {
-    deleteHelper(node -> right, key);
+  bool duplicate = false; //to check if somethign is not in list
+  recursiveRetrieve(key, duplicate, root);
+  if (!duplicate) {
+    
+    cout << "Item not in tree." <<endl;
+    return;
+  }
+  
+  if(key.compareTo(node -> key) == LESS) { //checks which way it needs to go
+    deleteHelper(node -> left, key); //recursive
+  } else if (key.compareTo(node -> key) == GREATER) { //checks which way it needs to go
+    deleteHelper(node -> right, key); //recursive
   } else {
-    deleteNode(node);
+    deleteNode(node); //find and delete node
   }
 }
 
 void BinaryTree::deleteNode(Node*& n) {
-  Node* temp;
-  temp = n;
+  Node* temp = n;
+  //case 1: root only has 1 child
   if (n -> right == NULL) {
     n = n -> left;
     delete temp;
@@ -163,14 +169,15 @@ void BinaryTree::deleteNode(Node*& n) {
     n = n -> right;
     delete temp;
   } else {
-    Node* ptr = getPredecessor(n -> left);
-    n -> key = ptr -> key;
-    deleteHelper(n -> left, n -> key);
+    //case 2: root has 2 children
+    Node* ptr = getPredecessor(n -> left); //gets predecessor
+    n -> key = ptr -> key; //sets n key to ptr key to change the data of n to predecessors
+    deleteHelper(n -> left, n -> key); //deltes the duplicate item
   }
 }
 
 Node* BinaryTree::getPredecessor(Node*& node) {
-  while(node -> right != NULL) {
+  while(node -> right != NULL) { //finds predecessor
     node = node -> right;
   }
   return node;
