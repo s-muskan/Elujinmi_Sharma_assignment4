@@ -14,7 +14,8 @@ class BinaryTree {
 private:
   Node *root;
 public:
-    int size = 0;
+  int size = 0;
+  bool found = false;
   BinaryTree(); //tree is initialized
   ~BinaryTree(); //all node pointers are freed
   void insert(ItemType key); //insert node
@@ -30,8 +31,10 @@ public:
   void recursivePreOrder(Node* ptr) const;
   void recursivePostOrder(Node* ptr) const;
   void recursiveRetrieve(ItemType item, bool &found, Node* ptr) const;
-  Node* recursiveDelete(Node* ptr, ItemType key);
+  Node* getPredecessor(Node*& node, ItemType& key);
   void recursiveDestroy(Node *ptr);
-  Node* findP(Node* node);
+  void deleteNode(Node*& n);
+  void deleteHelper(Node*& n, ItemType& key);
+  
 };
 #endif

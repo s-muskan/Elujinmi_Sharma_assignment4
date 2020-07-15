@@ -139,44 +139,39 @@ int BinaryTree::getLength()const {
 
 
 void BinaryTree::deleteItem(ItemType key) {
-  recursiveDelete(root, key);
+  deleteHelper(root, key);
+  size--;
 }
 
-
-Node* BinaryTree::recursiveDelete(Node* ptr, ItemType key) {
-
-    if (ptr == NULL) {
-        return ptr;
-    }
-
-    if (key.compareTo(ptr -> key) == LESS) {
-      ptr -> left = recursiveDelete(ptr -> left, key);
-    } else if (key.compareTo(ptr -> key) == GREATER) {
-      ptr -> right = recursiveDelete(ptr -> right, key);
-    } else {
-      if (ptr -> left == NULL) {
-	size--;
-    Node *temp = ptr -> right;
-    delete(ptr);
-    return temp;
-      } else if (ptr -> right == NULL) {
-          Node *temp = ptr -> left;
-          delete(ptr);
-          return temp;
-      }
-
-      Node* temp = findP(ptr -> right);
-      ptr -> key = temp -> key;
-
-      ptr -> right =  recursiveDelete(ptr -> right, temp -> key);
-    }
-    return ptr;
-}
-
-Node* BinaryTree:: findP(Node* node) {
-  Node* min = node;
-  while (min != NULL && min->left != NULL) {
-    min = min -> left;
+void BinaryTree::deleteHelper(Node*& node, ItemType& key) {
+  if(key.compareTo(node -> key) == LESS) {
+    deleteHelper(node -> left, key);
+  } else if (key.compareTo(node -> key) == GREATER) {
+    deleteHelper(node -> right, key);
+  } else {
+    deleteNode(node);
   }
-  return min;
+}
+
+void BinaryTree::deleteNode(Node*& n) {
+  Node* temp;
+  temp = n;
+  if (n -> right == NULL) {
+    n = n -> left;
+    delete temp;
+  } else if (n -> left == NULL) {
+    n = n -> right;
+    delete temp;
+  } else {
+    Node* ptr = getPredecessor(n -> left, n -> key);
+    n -> key = ptr -> key;
+    deleteHelper(n -> left, n -> key);
+  }
+}
+
+Node* BinaryTree::getPredecessor(Node*& node, ItemType& key) {
+  while(node -> right != NULL) {
+    node = node -> right;
+  }
+  return node;
 }
