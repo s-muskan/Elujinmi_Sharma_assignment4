@@ -163,15 +163,16 @@ void BinaryTree::deleteNode(Node*& n) {
     n = n -> right;
     delete temp;
   } else {
-    Node* ptr = getPredecessor(n -> left, n -> key);
+    Node* ptr = getPredecessor(n -> left);
     n -> key = ptr -> key;
     deleteHelper(n -> left, n -> key);
   }
 }
 
-Node* BinaryTree::getPredecessor(Node*& node, ItemType& key) {
+Node* BinaryTree::getPredecessor(Node*& node) {
   while(node -> right != NULL) {
     node = node -> right;
   }
   return node;
 }
+

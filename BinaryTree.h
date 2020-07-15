@@ -31,7 +31,7 @@ public:
   void recursivePreOrder(Node* ptr) const;
   void recursivePostOrder(Node* ptr) const;
   void recursiveRetrieve(ItemType item, bool &found, Node* ptr) const;
-  Node* getPredecessor(Node*& node, ItemType& key);
+  Node* getPredecessor(Node*& node);
   void recursiveDestroy(Node *ptr);
   void deleteNode(Node*& n);
   void deleteHelper(Node*& n, ItemType& key);
