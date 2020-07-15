@@ -155,24 +155,19 @@ void BinaryTree::deleteHelper(Node*& node, ItemType& key) {
   } else if (key.compareTo(node -> key) == GREATER) { //checks which way it needs to go
     deleteHelper(node -> right, key); //recursive
   } else {
-    deleteNode(node); //find and delete node
-  }
-}
-
-void BinaryTree::deleteNode(Node*& n) {
-  Node* temp = n;
-  //case 1: root only has 1 child
-  if (n -> right == NULL) {
-    n = n -> left;
-    delete temp;
-  } else if (n -> left == NULL) {
-    n = n -> right;
-    delete temp;
-  } else {
-    //case 2: root has 2 children
-    Node* ptr = getPredecessor(n -> left); //gets predecessor
-    n -> key = ptr -> key; //sets n key to ptr key to change the data of n to predecessors
-    deleteHelper(n -> left, n -> key); //deltes the duplicate item
+    Node* temp = node;
+    if (node -> right == NULL) {
+      node = node -> left;
+      delete temp;
+    } else if (node -> left == NULL) {
+      node = node -> right;
+      delete temp;
+    } else {
+      //case 2: root has 2 children
+      Node* ptr = getPredecessor(node -> left); //gets predecessor
+      node -> key = ptr -> key; //sets n key to ptr key to change the data of n to predecessors
+      deleteHelper(node -> left, node -> key); //deltes the duplicate item
+    }
   }
 }
 
